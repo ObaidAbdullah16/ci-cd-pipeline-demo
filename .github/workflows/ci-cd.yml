@@ -2,9 +2,9 @@ name: CI/CD Pipeline
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
   # Stage 1: Build the Docker image and verify it works
@@ -31,12 +31,12 @@ jobs:
       - name: Stop container
         run: docker stop test-container && docker rm test-container
 
-  # Stage 2: Push image to Docker Hub (only on main branch)
+  # Stage 2: Push image to Docker Hub (only on master branch)
   push:
     name: 📦 Push to Docker Hub
     runs-on: ubuntu-latest
     needs: build
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -59,12 +59,12 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/ci-cd-pipeline-demo:latest
             ${{ secrets.DOCKERHUB_USERNAME }}/ci-cd-pipeline-demo:${{ github.sha }}
 
-  # Stage 3: Deploy to AWS EC2 (only on main branch)
+  # Stage 3: Deploy to AWS EC2 (only on master branch)
   deploy:
     name: 🚀 Deploy to EC2
     runs-on: ubuntu-latest
     needs: push
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     environment: production
     steps:
       - name: Deploy to EC2 via SSH
