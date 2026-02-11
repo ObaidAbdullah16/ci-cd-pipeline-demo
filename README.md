@@ -1,6 +1,7 @@
 # 🚀 CI/CD Pipeline Demo
 
 ![CI/CD Pipeline](https://github.com/ObaidAbdullah16/ci-cd-pipeline-demo/actions/workflows/ci-cd.yml/badge.svg?branch=master)
+### Live Demo : http://65.0.21.77:3000
 
 A simple web app with a fully automated CI/CD pipeline that builds, pushes, and deploys to **AWS EC2** using GitHub Actions and Docker.
 
